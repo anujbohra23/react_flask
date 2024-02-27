@@ -7,6 +7,7 @@ from PIL import Image
 import numpy as np
 from tensorflow.keras.models import load_model
 
+
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
