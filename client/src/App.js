@@ -2,7 +2,8 @@ import logo from "./logo.svg";
 import "./App.css";
 
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "./axiosInstance";
+// Import custom Axios instance
 
 function App() {
   const [data, setData] = useState("");
@@ -11,7 +12,7 @@ function App() {
   const [filename, setFilename] = useState("No file uploaded");
 
   useEffect(() => {
-    fetch("https://localhost:5000")
+    fetch("http://localhost:5000") // Update fetch URL to match Flask server's address
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -26,10 +27,12 @@ function App() {
     formData.append("file", file);
 
     try {
-      axios.post("http://localhost:5000/upload", formData).then((res) => {
-        console.log(res.data.message);
-        setVal(res.data.message);
-      });
+      axios
+        .post("/upload", formData) // Use custom Axios instance with base URL configured
+        .then((res) => {
+          console.log(res.data.message);
+          setVal(res.data.message);
+        });
       alert("File uploaded successfully");
     } catch (error) {
       console.error(error);
